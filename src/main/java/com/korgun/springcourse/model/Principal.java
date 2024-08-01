@@ -2,12 +2,9 @@ package com.korgun.springcourse.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "Person")
-public class Person {
+@Table(name = "principal")
+public class Principal {
 
     @Id
     @Column(name = "id")
@@ -20,14 +17,16 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    @OneToOne(mappedBy = "person", cascade = {CascadeType.PERSIST})
-    private Passport passport;
+    @OneToOne(mappedBy = "principal", cascade = CascadeType.PERSIST)
+    private School school;
 
-    public Person(){}
+    public Principal() {
+    }
 
-    public Person(String name, int age) {
+    public Principal(String name, int age, School school) {
         this.name = name;
         this.age = age;
+        this.school = school;
     }
 
     public int getId() {
@@ -54,17 +53,21 @@ public class Person {
         this.age = age;
     }
 
-    public Passport getPassport() {
-        return passport;
+    public School getSchool() {
+        return school;
     }
 
-    public void setPassport(Passport passport) {
-        this.passport = passport;
-        passport.setPerson(this);
+    public void setSchool(School school) {
+        this.school = school;
+        school.setPrincipal(this);
     }
 
     @Override
     public String toString() {
-        return name + ", " + age;
+        return "Principal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
